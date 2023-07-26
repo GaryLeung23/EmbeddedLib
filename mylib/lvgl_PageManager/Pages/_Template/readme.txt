@@ -1,0 +1,14 @@
+MVP模式架构
+
+XXXView.cpp 实现界面如何显示，其h文件存放对应的lv_obj_t 对象。通常是实现在一个Create函数
+
+XXXModel.cpp 实现后台数据的处理。数据的初始化通常在一个Init里是实现。
+
+而XXX.cpp则是串联View与Model的。其类中有View与Model的引用。
+构造函数、析构函数、onCustomAttrConfig、onViewLoad、onViewDidLoad、onViewWillAppear、onViewDidAppear、onViewWillDisappear、onViewDidDisappear、onViewUnload、onViewDidUnload，这些是必须要实现的。
+其他可以根据实际需要添加。
+构造函数用来初始化一些用户数据。
+onCustomAttrConfig用于Cache设置与动画设置等。
+onViewLoad调用Model.Init初始化数据，调用View.Create创建页面。同时绑定一些事件callback。
+onViewWillAppear设置页面的参数与创建定时器等。
+onViewDidDisappear 删除定时器等

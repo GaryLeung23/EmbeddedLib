@@ -1,0 +1,569 @@
+<!DOCTYPE html> <html lang=en style><!--
+ Page saved with SingleFile 
+ url: https://www.topografix.com/gpx_manual.asp 
+ saved date: Thu Feb 23 2023 16:05:37 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>GPX 1.0 Developer's Manual</title>
+<meta name=description content="GPX - The GPS Exchange Format">
+<meta name=keywords content="GPX, GPS, XML, GPSXML, GPS exchange format, waypoints, routes, tracks, gps data">
+<style>/*!
+ * Bootstrap v4.1.3 (https://getbootstrap.com/)
+ * Copyright 2011-2018 The Bootstrap Authors
+ * Copyright 2011-2018 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */:root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc3545;--orange:#fd7e14;--yellow:#ffc107;--green:#28a745;--teal:#20c997;--cyan:#17a2b8;--white:#fff;--gray:#6c757d;--gray-dark:#343a40;--primary:#007bff;--secondary:#6c757d;--success:#28a745;--info:#17a2b8;--warning:#ffc107;--danger:#dc3545;--light:#f8f9fa;--dark:#343a40;--breakpoint-xs:0;--breakpoint-sm:576px;--breakpoint-md:768px;--breakpoint-lg:992px;--breakpoint-xl:1200px;--font-family-sans-serif:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--font-family-monospace:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}*,::after,::before{box-sizing:border-box}html{font-family:sans-serif;line-height:1.15;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-ms-overflow-style:scrollbar;-webkit-tap-highlight-color:transparent}@-ms-viewport{width:device-width}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;text-align:left;background-color:#fff}h1,h3,h4{margin-top:0}p{margin-top:0;margin-bottom:1rem}ul{margin-top:0;margin-bottom:1rem}b{font-weight:bolder}a{color:#007bff;text-decoration:none;background-color:transparent;-webkit-text-decoration-skip:objects}a:hover{color:#0056b3;text-decoration:underline}a:not([href]):not([tabindex]){color:inherit;text-decoration:none}a:not([href]):not([tabindex]):focus,a:not([href]):not([tabindex]):hover{color:inherit;text-decoration:none}a:not([href]):not([tabindex]):focus{outline:0}code{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}::-webkit-file-upload-button{font:inherit;-webkit-appearance:button}h1,h3,h4{margin-bottom:.5rem;font-family:inherit;font-weight:500;line-height:1.2;color:inherit}h1{font-size:2.5rem}h3{font-size:1.75rem}h4{font-size:1.5rem}code{font-size:87.5%;color:#e83e8c;word-break:break-word}.container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}@media (min-width:576px){.container{max-width:540px}}@media (min-width:768px){.container{max-width:720px}}@media (min-width:992px){.container{max-width:960px}}@media (min-width:1200px){.container{max-width:1140px}}.collapse:not(.show){display:none}.nav-link{display:block;padding:.5rem 1rem}.nav-link:focus,.nav-link:hover{text-decoration:none}.navbar{position:relative;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-align:center;align-items:center;-ms-flex-pack:justify;justify-content:space-between;padding:.5rem 1rem}.navbar-brand{display:inline-block;padding-top:.3125rem;padding-bottom:.3125rem;margin-right:1rem;font-size:1.25rem;line-height:inherit;white-space:nowrap}.navbar-brand:focus,.navbar-brand:hover{text-decoration:none}.navbar-nav{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;padding-left:0;margin-bottom:0;list-style:none}.navbar-nav .nav-link{padding-right:0;padding-left:0}.navbar-collapse{-ms-flex-preferred-size:100%;flex-basis:100%;-ms-flex-positive:1;flex-grow:1;-ms-flex-align:center;align-items:center}@media (min-width:992px){.navbar-expand-lg{-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-pack:start;justify-content:flex-start}.navbar-expand-lg .navbar-nav{-ms-flex-direction:row;flex-direction:row}.navbar-expand-lg .navbar-nav .nav-link{padding-right:.5rem;padding-left:.5rem}.navbar-expand-lg .navbar-collapse{display:-ms-flexbox!important;display:flex!important;-ms-flex-preferred-size:auto;flex-basis:auto}}.navbar-light .navbar-brand{color:rgba(0,0,0,.9)}.navbar-light .navbar-brand:focus,.navbar-light .navbar-brand:hover{color:rgba(0,0,0,.9)}.navbar-light .navbar-nav .nav-link{color:rgba(0,0,0,.5)}.navbar-light .navbar-nav .nav-link:focus,.navbar-light .navbar-nav .nav-link:hover{color:rgba(0,0,0,.7)}@-webkit-keyframes progress-bar-stripes{from{background-position:1rem 0}to{background-position:0 0}}@keyframes progress-bar-stripes{from{background-position:1rem 0}to{background-position:0 0}}@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)){.carousel-item-next.carousel-item-left,.carousel-item-prev.carousel-item-right{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)){.active.carousel-item-right,.carousel-item-next{-webkit-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}}@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)){.active.carousel-item-left,.carousel-item-prev{-webkit-transform:translate3d(-100%,0,0);transform:translate3d(-100%,0,0)}}@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)){.carousel-fade .active.carousel-item-left,.carousel-fade .active.carousel-item-prev,.carousel-fade .carousel-item-next,.carousel-fade .carousel-item-prev,.carousel-fade .carousel-item.active{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}.bg-light{background-color:#f8f9fa!important}@supports ((position:-webkit-sticky) or (position:sticky)){.sticky-top{position:-webkit-sticky;position:sticky;top:0;z-index:1020}}.mr-auto{margin-right:auto!important}</style>
+<link type=image/x-icon rel="shortcut icon" href=data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAwMDAAICAgAAAAP8AAP8AAAD//wD/AAAA/wD/AP//AAD///8AAA8AAPAPAAAADwcA//8HAAAPAAAAAAcAAA8AAAAHAAAADwBwBwcAAADM8AAHAAAPgMzwcAAHAA8MzM8AAAAA8AzMLwcP8HDwDMIvAA/wAPAMwiL/8i//AAzHIiIiIiIACMx3zMzCIIAIzHdyIiIgAACMx8ciIgAAAAiMyHIAAADgYAAA4AAAAOAAAADgAAAAwAAAAIAAAAAAAAAAAAEAAAABAAAAAQAAAAEAAAABAACAAQAAgAMAAMAHAADgDwAA><style>.sf-hidden{display:none!important}</style><link rel=canonical href=https://www.topografix.com/gpx_manual.asp><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body>
+ <div class=container>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+ <a class=navbar-brand href=https://www.topografix.com/gpx.asp>GPX Home</a>
+ <button class="navbar-toggler sf-hidden" type=button data-toggle=collapse data-target=#navbarSupportedContent aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation">
+ 
+ </button>
+ <div class="collapse navbar-collapse" id=navbarSupportedContent>
+ <ul class="navbar-nav mr-auto">
+ <li class=nav-item>
+ <a class=nav-link href=https://www.topografix.com/gpx/1/1/gpx.xsd>GPX 1.1 Schema</a>
+ </li>
+ <li class=nav-item>
+ <a class=nav-link href=https://www.topografix.com/gpx/1/1/>Documentation</a>
+ </li>
+ <li class=nav-item>
+ <a class=nav-link href=https://www.topografix.com/gpx_for_developers.asp>Why support GPX?</a>
+ </li>
+ <li class=nav-item>
+ <a class=nav-link href=https://www.topografix.com/gpx_validation.asp>Validating GPX</a>
+ </li>
+ <li class=nav-item>
+ <a class=nav-link href=https://groups.io/g/gpx>GPX Developers Mailing List</a>
+ </li>
+ <li class=nav-item>
+ <a class=nav-link href=https://www.topografix.com/gpx_sample_files.asp>Examples</a>
+ </li>
+ <li class=nav-item>
+ <a class=nav-link href=https://www.topografix.com/gpx_resources.asp>Who supports GPX?</a>
+ </li>
+ </ul>
+ </div>
+</nav>
+<div id=wrapper>
+<br>
+<div id=mast><h1>GPX 1.0 Developer's Manual</h1></div>
+<div id=content>
+<h3>This Manual is Outdated!</h3>
+<p>This document applies to GPX 1.0. GPX 1.1 is the <a href=https://www.topografix.com/gpx.asp>current GPX implementation</a>.
+</p>
+<h3>Introduction</h3>
+<p>GPX (the GPS eXchange Format) is a light-weight XML data format for the interchange of GPS data
+(waypoints, routes, and tracks) between applications and web services on the Internet. This document
+describes the XML elements defined in GPX in detail and provides examples of their use. The descriptions
+in this document are designed to help developers interpret the GPX schema, which is the definitive
+definition of GPX.
+</p>
+<h3>Validating your GPX Output</h3>
+<p>Your application needs to produce valid GPX output before it can be used with other programs
+and web services that support GPX. As a developer, it is your responsibility to ensure that
+the GPX data you create <a href=https://www.topografix.com/gpx_validation.asp>validates correctly</a> A GPX file is not a GPX file
+if it doesn't pass the validator! 
+</p>
+<h3>XML Namespaces</h3>
+<p>GPX files should reference at least two namespaces: the XMLSchema namespace, and the GPX namespace. If you include private elements
+in your GPX files, you need to reference that namespace as well. Here are two examples:
+</p>
+<p>Example using no private elements:
+<code>
+<br> xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<br> xmlns="http://www.topografix.com/GPX/1/0"
+<br> xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd"&gt;
+</code>
+</p>
+<p>Example from ExpertGPS using TopoGrafix 0.2 private elements:
+<code>
+<br> xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<br> xmlns="http://www.topografix.com/GPX/1/0"
+<br> xmlns:topografix="http://www.topografix.com/GPX/Private/TopoGrafix/0/2"
+<br> xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.topografix.com/GPX/Private/TopoGrafix/0/2 http://www.topografix.com/GPX/Private/TopoGrafix/0/2/topografix.xsd"&gt;
+</code>
+</p>
+<a name=gpx><h3>&lt;gpx&gt; GPX File Organization</h3></a>
+<p>All GPX files contain one &lt;gpx&gt; element as the outermost element. &lt;gpx&gt; contains the following:
+<ul>
+ <li><a href=#gpx_req>Required file information</a></li>
+ <li><a href=#gpx_opt>Optional file information</a></li>
+ <li><a href=#wpt>&lt;wpt&gt; Optional Waypoints</a></li>
+ <li><a href=#rte>&lt;rte&gt; Optional Routes</a></li>
+ <li><a href=#trk>&lt;trk&gt; Optional Tracks</a></li>
+ <li><a href=#gpx_private>Optional Private Elements</a></li>
+</ul>
+<p></p>
+<a name=gpx_req><h4>Required file information in &lt;gpx&gt;</h4></a>
+<p>All GPX files must contain the following attributes:
+<ul>
+ <li><a href=#version>&lt;version&gt; GPX schema version used in file</a></li>
+ <li><a href=#creator>&lt;creator&gt; Program used to create file</a></li>
+</ul>
+<p></p>
+<a name=gpx_opt><h4>Optional file information in &lt;gpx&gt;</h4></a>
+<ul>
+ <li><a href=#name>&lt;name&gt; Descriptive name of the GPX file</a></li>
+ <li><a href=#desc>&lt;desc&gt; Description of the GPX file</a></li>
+ <li><a href=#author>&lt;author&gt; Name of the file's creator</a></li>
+ <li><a href=#email>&lt;email&gt; Email address of the file's creator</a></li>
+ <li><a href=#url>&lt;url&gt; URL associated with the file</a></li>
+ <li><a href=#urlname>&lt;urlname&gt; Text to display on the &lt;url&gt; hyperlink</a></li>
+ <li><a href=#time>&lt;time&gt; Creation date/time of the GPX file</a></li>
+ <li><a href=#keywords>&lt;keywords&gt; Keywords for categorizing the GPX file in a database or search engine</a></li>
+ <li><a href=#bounds>&lt;bounds&gt; Bounding rectangle for the data in the file.</a></li>
+</ul>
+<a name=wpt><h3>&lt;wpt&gt; Waypoint</h3></a>
+<ul> Required Information:
+ <li><a href=#lat>&lt;lat&gt; Latitude of the waypoint.</a></li>
+ <li><a href=#lon>&lt;lon&gt; Longitude of the waypoint.</a></li>
+</ul>
+<ul> Optional Position Information:
+ <li><a href=#ele>&lt;ele&gt; Elevation of the waypoint.</a></li>
+ <li><a href=#time>&lt;time&gt; Creation date/time of the waypoint</a></li>
+ <li><a href=#magvar>&lt;magvar&gt; Magnetic variation of the waypoint</a></li>
+ <li><a href=#geoidheight>&lt;geoidheight&gt; Geoid height of the waypoint</a></li>
+</ul>
+<ul> Optional Description Information:
+ <li><a href=#name>&lt;name&gt; GPS waypoint name of the waypoint</a></li>
+ <li><a href=#cmt>&lt;cmt&gt; GPS comment of the waypoint</a></li>
+ <li><a href=#desc>&lt;desc&gt; Descriptive description of the waypoint</a></li>
+ <li><a href=#src>&lt;src&gt; Source of the waypoint data</a></li>
+ <li><a href=#url>&lt;url&gt; URL associated with the waypoint</a></li>
+ <li><a href=#urlname>&lt;urlname&gt; Text to display on the &lt;url&gt; hyperlink</a></li>
+ <li><a href=#sym>&lt;sym&gt; Waypoint symbol</a></li>
+ <li><a href=#type>&lt;type&gt; Type (category) of waypoint</a></li>
+</ul>
+<ul> Optional Accuracy Information:
+ <li><a href=#fix>&lt;fix&gt; Type of GPS fix</a></li>
+ <li><a href=#sat>&lt;sat&gt; Number of satellites</a></li>
+ <li><a href=#hdop>&lt;hdop&gt; HDOP</a></li>
+ <li><a href=#vdop>&lt;vdop&gt; VDOP</a></li>
+ <li><a href=#pdop>&lt;pdop&gt; PDOP</a></li>
+ <li><a href=#ageofdgpsdata>&lt;ageofdgpsdata&gt; Time since last DGPS fix</a></li>
+ <li><a href=#dgpsid>&lt;dgpsid&gt; DGPS station ID</a></li>
+</ul>
+<ul> Optional Private Information:
+ <li><a href=#gpx_private>Private Elements</a></li>
+</ul>
+<a name=rte><h3>&lt;rte&gt; Route</h3></a>
+<ul> Optional Information
+ <li><a href=#name>&lt;name&gt; GPS route name</a></li>
+ <li><a href=#cmt>&lt;cmt&gt; GPS route comment</a></li>
+ <li><a href=#desc>&lt;desc&gt; Description of the route</a></li>
+ <li><a href=#src>&lt;src&gt; Source of the route data</a></li>
+ <li><a href=#url>&lt;url&gt; URL associated with the route</a></li>
+ <li><a href=#urlname>&lt;urlname&gt; Text to display on the &lt;url&gt; hyperlink</a></li>
+ <li><a href=#number>&lt;number&gt; GPS route number</a></li>
+ <li><a href=#gpx_private>Private Elements</a></li>
+ <li><a href=#rtept>List of routepoints</a></li>
+</ul>
+<a name=rtept><h3>&lt;rtept&gt; Routepoint</h3></a>
+<ul> Required Information:
+ <li><a href=#lat>&lt;lat&gt; Latitude of the routepoint.</a></li>
+ <li><a href=#lon>&lt;lon&gt; Longitude of the routepoint.</a></li>
+</ul>
+<ul> Optional Position Information:
+ <li><a href=#ele>&lt;ele&gt; Elevation of the routepoint.</a></li>
+ <li><a href=#time>&lt;time&gt; Creation date/time of the routepoint</a></li>
+ <li><a href=#magvar>&lt;magvar&gt; Magnetic variation of the routepoint</a></li>
+ <li><a href=#geoidheight>&lt;geoidheight&gt; Geoid height of the routepoint</a></li>
+</ul>
+<ul> Optional Description Information:
+ <li><a href=#name>&lt;name&gt; GPS waypoint name of the routepoint</a></li>
+ <li><a href=#cmt>&lt;cmt&gt; GPS comment of the routepoint</a></li>
+ <li><a href=#desc>&lt;desc&gt; Descriptive description of the routepoint</a></li>
+ <li><a href=#src>&lt;src&gt; Source of the routepoint data</a></li>
+ <li><a href=#url>&lt;url&gt; URL associated with the routepoint</a></li>
+ <li><a href=#urlname>&lt;urlname&gt; Text to display on the &lt;url&gt; hyperlink</a></li>
+ <li><a href=#sym>&lt;sym&gt; routepoint symbol</a></li>
+ <li><a href=#type>&lt;type&gt; Type (category) of routepoint</a></li>
+</ul>
+<ul> Optional Accuracy Information:
+ <li><a href=#fix>&lt;fix&gt; Type of GPS fix</a></li>
+ <li><a href=#sat>&lt;sat&gt; Number of satellites</a></li>
+ <li><a href=#hdop>&lt;hdop&gt; HDOP</a></li>
+ <li><a href=#vdop>&lt;vdop&gt; VDOP</a></li>
+ <li><a href=#pdop>&lt;pdop&gt; PDOP</a></li>
+ <li><a href=#ageofdgpsdata>&lt;ageofdgpsdata&gt; Time since last DGPS fix</a></li>
+ <li><a href=#dgpsid>&lt;dgpsid&gt; DGPS station ID</a></li>
+</ul>
+<ul> Optional Private Information:
+ <li><a href=#gpx_private>Private Elements</a></li>
+</ul>
+<a name=trk><h3>&lt;trk&gt; Track</h3></a>
+<ul> Optional Information
+ <li><a href=#name>&lt;name&gt; GPS track name</a></li>
+ <li><a href=#cmt>&lt;cmt&gt; GPS track comment</a></li>
+ <li><a href=#desc>&lt;desc&gt; Description of the track</a></li>
+ <li><a href=#src>&lt;src&gt; Source of the track data</a></li>
+ <li><a href=#url>&lt;url&gt; URL associated with the track</a></li>
+ <li><a href=#urlname>&lt;urlname&gt; Text to display on the &lt;url&gt; hyperlink</a></li>
+ <li><a href=#number>&lt;number&gt; GPS track number</a></li>
+ <li><a href=#gpx_private>Private Elements</a></li>
+ <li><a href=#trkseg>List of Track Segments</a></li>
+</ul>
+<a name=trkseg><h3>&lt;trkseg&gt; Track Segment</h3></a>
+<p>A Track Segment holds a list of Track Points which are logically connected in order. To represent a single GPS track where 
+ GPS reception was lost, or the GPS receiver was turned off, start a new Track Segment for each continuous span of track data.</p>
+<ul> Optional Information:
+ <li><a href=#trkpt>List of Track Points</a></li>
+</ul>
+<a name=trkpt><h3>&lt;trkpt&gt; Trackpoint</h3></a>
+<ul> Optional Required Information:
+ <li><a href=#lat>&lt;lat&gt; Latitude of the trackpoint.</a></li>
+ <li><a href=#lon>&lt;lon&gt; Longitude of the trackpoint.</a></li>
+</ul>
+<ul> Optional Position Information:
+ <li><a href=#ele>&lt;ele&gt; Elevation of the trackpoint.</a></li>
+ <li><a href=#time>&lt;time&gt; Creation date/time of the trackpoint</a></li>
+ <li><a href=#magvar>&lt;magvar&gt; Magnetic variation of the trackpoint</a></li>
+ <li><a href=#geoidheight>&lt;geoidheight&gt; Geoid height of the trackpoint</a></li>
+</ul>
+<ul> Optional Description Information:
+ <li><a href=#name>&lt;name&gt; GPS waypoint name of the trackpoint</a></li>
+ <li><a href=#cmt>&lt;cmt&gt; GPS comment of the trackpoint</a></li>
+ <li><a href=#desc>&lt;desc&gt; Descriptive description of the trackpoint</a></li>
+ <li><a href=#src>&lt;src&gt; Source of the trackpoint data</a></li>
+ <li><a href=#url>&lt;url&gt; URL associated with the trackpoint</a></li>
+ <li><a href=#urlname>&lt;urlname&gt; Text to display on the &lt;url&gt; hyperlink</a></li>
+ <li><a href=#sym>&lt;sym&gt; trackpoint symbol</a></li>
+ <li><a href=#type>&lt;type&gt; Type (category) of trackpoint</a></li>
+</ul>
+<ul> Optional Accuracy Information:
+ <li><a href=#fix>&lt;fix&gt; Type of GPS fix</a></li>
+ <li><a href=#sat>&lt;sat&gt; Number of satellites</a></li>
+ <li><a href=#hdop>&lt;hdop&gt; HDOP</a></li>
+ <li><a href=#vdop>&lt;vdop&gt; VDOP</a></li>
+ <li><a href=#pdop>&lt;pdop&gt; PDOP</a></li>
+ <li><a href=#ageofdgpsdata>&lt;ageofdgpsdata&gt; Time since last DGPS fix</a></li>
+ <li><a href=#dgpsid>&lt;dgpsid&gt; DGPS station ID</a></li>
+</ul>
+<ul> Optional Private Information:
+ <li><a href=#gpx_private>Private Elements</a></li>
+</ul>
+<h3>Required Attributes</h3>
+<a name=version><h4>&lt;version&gt;</h4></a>
+<p>Required in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+</p>
+<p><code>&lt;gpx version="0.6" ... &gt;</code></p>
+<p>All GPX files must include the version of the GPX schema which the file references.
+</p>
+<a name=creator><h4>&lt;creator&gt;</h4></a>
+<p>Required in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+</p>
+<p><code>&lt;gpx ... creator="EasyGPS 1.1 - www.easygps.com" ... &gt;</code></p>
+<p>All GPX files must include the name of the application or web service which created
+ the file. This is to assist developers in tracking down the source of a mal-formed GPX
+ document, and to provide a hint to users as to how they can open the file.
+</p>
+<a name=lat><h4>&lt;lat&gt;</h4></a>
+<p>Required in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p>Units: Decimal degrees, WGS84</p>
+<p><code>&lt;wpt lat="42.323" ... &gt;</code></p>
+<p>The latitude of the point.
+</p>
+<a name=lon><h4>&lt;lon&gt;</h4></a>
+<p>Required in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p>Units: Decimal degrees, WGS84</p>
+<p><code>&lt;wpt ... lon="-71.20453" ... &gt;</code></p>
+<p>The longitude of the point.
+</p>
+<h3>Optional Elements</h3>
+<a name=name><h4>&lt;name&gt;</h4></a>
+<p>Optional in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rte><b>&lt;rte&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trk><b>&lt;trk&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p>&lt;gpx&gt;: <code>&lt;name&gt;Five Hikes in the White Mountains&lt;/name&gt;</code></p>
+<p>&lt;wpt&gt;: <code>&lt;name&gt;MTWASHINGT&lt;/name&gt;</code></p>
+<p>&lt;rte&gt;: <code>&lt;name&gt;CRAW PATH&lt;/name&gt;</code></p>
+<p>&lt;rtept&gt;: <code>&lt;name&gt;DAVISTRL&lt;/name&gt;</code></p>
+<p>In &lt;gpx&gt;: the name of the file.
+</p>
+<p>In all other elements: the GPS name of the element. This field will be transferred to and
+from the GPS. GPX does not place restrictions on the length of this field or the characters
+contained in it. It is up to the receiving application to validate the field before sending
+it to the GPS.
+</p>
+<a name=desc><h4>&lt;desc&gt;</h4></a>
+<p>Optional in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rte><b>&lt;rte&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trk><b>&lt;trk&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p>&lt;gpx&gt;: <code>&lt;desc&gt;Five Hikes in the White Mountains&lt;/desc&gt;</code></p>
+<p>&lt;wpt&gt;: <code>&lt;desc&gt;Mount Washington&lt;/desc&gt;</code></p>
+<p>&lt;rte&gt;: <code>&lt;desc&gt;Crawford Path Hike&lt;/desc&gt;</code></p>
+<p>&lt;rtept&gt;: <code>&lt;desc&gt;Junction with Davis Trail&lt;/desc&gt;</code></p>
+<p>A text description of the element. Holds additional information about the element
+intended for the user, not the GPS. 
+</p>
+<a name=author><h4>&lt;author&gt;</h4></a>
+<p>Optional in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+</p>
+<p><code>&lt;author&gt;Dan Foster&lt;/author&gt;</code></p>
+<p>The author of the GPX file. The GPX file's owner/creator.
+</p>
+<a name=email><h4>&lt;email&gt;</h4></a>
+<p>Optional in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+</p>
+<p><code>&lt;email&gt;danfoster95@yahoo.com&lt;/email&gt;</code></p>
+<p>Email address associated with the GPX file. Usually contact email address of the
+GPX file's author.
+</p>
+<a name=url><h4>&lt;url&gt;</h4></a>
+<p>Optional in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rte><b>&lt;rte&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trk><b>&lt;trk&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;url&gt;www.mountwashington.org/&lt;/url&gt;</code></p>
+<p>URL associated with the element. Webpage or additional info connected to element.
+</p>
+<a name=urlname><h4>&lt;urlname&gt;</h4></a>
+<p>Optional in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rte><b>&lt;rte&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trk><b>&lt;trk&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;urlname&gt;Visit my New Hampshire hiking website!&lt;/urlname&gt;</code></p>
+<p>Hyperlink text associated with the URL.
+</p>
+<a name=time><h4>&lt;time&gt;</h4></a>
+<p>Optional in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rte><b>&lt;rte&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trk><b>&lt;trk&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;time&gt;2002-02-10T21:01:29.250Z&lt;/time&gt;</code></p>
+<p>Creation/modification timestamp for element. Date and time in are in Univeral Coordinated Time (UTC),
+not local time! Conforms to ISO 8601 specification for date/time representation. Fractional seconds
+are allowed for millisecond timing in tracklogs.
+</p>
+<a name=keywords><h4>&lt;keywords&gt;</h4></a>
+<p>Optional in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+</p>
+<p><code>&lt;keywords&gt;Hiking, NH, Presidential Range&lt;/keywords&gt;</code></p>
+<p>Keywords for indexing the GPX file with search engines. Comma separated.
+</p>
+<a name=bounds><h4>&lt;bounds&gt;</h4></a>
+<p>Optional in:
+ <a href=#gpx><b>&lt;gpx&gt;</b></a>
+</p>
+<p><code>&lt;bounds minLat="42.1" minlon="-71.9" maxLat="42.4" maxlon="-71.1" /&gt;</code></p>
+<p>Bounding rectangle of all data in GPX file. Allows indexing by geographic extent.
+</p>
+<h4>Position Information</h4>
+<a name=ele><h4>&lt;ele&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p>Units: meters</p>
+<p><code>&lt;ele&gt;1206.2&lt;/ele&gt;</code></p>
+<p>Elevation in meters of the point.
+</p>
+<a name=course><h4>&lt;course&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p>Units: degrees, true</p>
+<p><code>&lt;course&gt;45.2&lt;/course&gt;</code></p>
+<p>Instantaneous course at the point.
+</p>
+<a name=speed><h4>&lt;speed&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p>Units: meters per second</p>
+<p><code>&lt;speed&gt;4.23&lt;/speed&gt;</code></p>
+<p>Instantaneous speed at the point.
+</p>
+<a name=magvar><h4>&lt;magvar&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p>Units: degrees</p>
+<p><code>&lt;magvar&gt;-16.2&lt;/magvar&gt;</code></p>
+<p>Magnetic variation at the point.
+</p>
+<a name=geoidheight><h4>&lt;geoidheight&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p>Units: meters</p>
+<p><code>&lt;geoidheight&gt;-16.2&lt;/geoidheight&gt;</code></p>
+<p>Height, in meters, of geoid (mean sea level) above WGS-84 earth ellipsoid. (NMEA GGA message)
+</p>
+<a name=cmt><h4>&lt;cmt&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rte><b>&lt;rte&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trk><b>&lt;trk&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;cmt&gt;MT WASHINGTON&lt;/cmt&gt;</code></p>
+<p>GPS waypoint comment. Sent to GPS as comment.
+</p>
+<a name=src><h4>&lt;src&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rte><b>&lt;rte&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trk><b>&lt;trk&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;src&gt;Garmin eTrex Venture&lt;/src&gt;</code></p>
+<p><code>&lt;src&gt;USGS Mount Washington 7.5 Quad&lt;/src&gt;</code></p>
+<p>Source of data. Included to give user some idea of reliability and
+accuracy of data.
+</p>
+<a name=sym><h4>&lt;sym&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;sym&gt;Scenic Area&lt;/sym&gt;</code></p>
+<p>Text of GPS symbol name. For interchange with other programs, use the exact spelling of the
+ symbol on the GPS, if known.
+</p>
+<a name=type><h4>&lt;type&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;type&gt;Hiking trail&lt;/type&gt;</code></p>
+<p>Type (classification) of element.
+</p>
+<a name=fix><h4>&lt;fix&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;fix&gt;2d&lt;/fix&gt;</code></p>
+<p>Type of GPX fix.
+<ul>Must be one of:
+ <li><code>none</code> No fix</li>
+ <li><code>2d</code> position only</li>
+ <li><code>3d</code> position and elevation</li>
+ <li><code>dgps</code> DGPS</li>
+ <li><code>pps</code> Military signal used</li>
+</ul>
+<p></p>
+<p>To represent "fix type unknown", leave out fix entirely.
+</p>
+<a name=sat><h4>&lt;sat&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;sat&gt;8&lt;/sat&gt;</code></p>
+<p>Number of satellites used to calculate the GPS fix. (not number of satellites in view).
+</p>
+<a name=hdop><h4>&lt;hdop&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;hdop&gt;1.4&lt;/hdop&gt;</code></p>
+<p>Horizontal dilution of precision.
+</p>
+<a name=vdop><h4>&lt;vdop&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;vdop&gt;3.2&lt;/vdop&gt;</code></p>
+<p>Vertical dilution of precision.
+</p>
+<a name=pdop><h4>&lt;pdop&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;pdop&gt;1.4&lt;/pdop&gt;</code></p>
+<p>Position dilution of precision.
+</p>
+<a name=ageofdgpsdata><h4>&lt;ageofdgpsdata&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;ageofdgpsdata&gt;21&lt;/ageofdgpsdata&gt;</code></p>
+<p>Number of seconds since last DGPS update.
+</p>
+<a name=dgpsid><h4>&lt;dgpsid&gt;</h4></a>
+<p>Optional in:
+ <a href=#wpt><b>&lt;wpt&gt;</b></a>
+ <a href=#rtept><b>&lt;rtept&gt;</b></a>
+ <a href=#trkpt><b>&lt;trkpt&gt;</b></a>
+</p>
+<p><code>&lt;dgpsid&gt;142&lt;/dgpsid&gt;</code></p>
+<p>ID of DGPS station used in differential correction.
+</p>
+<a name=number><h4>&lt;number&gt;</h4></a>
+<p>Optional in:
+ <a href=#rte><b>&lt;rte&gt;</b></a>
+ <a href=#trk><b>&lt;trk&gt;</b></a>
+</p>
+<p><code>&lt;number&gt;2&lt;/number&gt;</code></p>
+<p>GPS slot number for element.
+</p>
+<p><a href=https://www.topografix.com/gpx.asp>GPX Home</a></p>
+</div>
+<p class=copyright>GPX is an open standard. All text on this Web page is in the public domain. This page is maintained by <a href=https://www.expertgps.com/support.asp>Dan Foster</a></p>
+</div>
+</div>
+<div id=menu>
+</div>

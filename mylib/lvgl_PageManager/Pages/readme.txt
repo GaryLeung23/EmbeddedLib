@@ -1,0 +1,4 @@
+添加new page步骤
+1.模仿_Template文件夹编写出新的page
+2.在AppFactory.cpp中CreatePage函数添加一个APP_CLASS_MATCH
+3.在App.cpp中manager.Install newpage 

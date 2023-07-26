@@ -1,0 +1,50 @@
+--------------------------------------------------------------------
+
+--------------------------------------------------------------------
+
+
+下载toolchains，注意架构、版本、路径
+curl -LO https://storage.googleapis.com/mirror.tensorflow.org/developer.arm.com/media/Files/downloads/gnu-a/8.3-2019.03/binrel/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu.tar.xz
+mkdir -p ${HOME}/toolchains
+tar xvf gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu.tar.xz -C ${HOME}/toolchains
+
+
+
+
+
+mkdir tflite_build
+cd tflite_build
+
+
+ARMCC_PREFIX=/home/rlk/TensorflowLite/toolchains/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-
+ARMCC_FLAGS="-funsafe-math-optimizations"
+proxychains cmake -DCMAKE_C_COMPILER=${ARMCC_PREFIX}gcc \
+  -DCMAKE_CXX_COMPILER=${ARMCC_PREFIX}g++ \
+  -DCMAKE_C_FLAGS="${ARMCC_FLAGS}" \
+  -DCMAKE_CXX_FLAGS="${ARMCC_FLAGS}" \
+  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+  -DCMAKE_SYSTEM_NAME=Linux \
+  -DCMAKE_SYSTEM_PROCESSOR=aarch64 \
+  -DTFLITE_ENABLE_XNNPACK=OFF \
+  ../tensorflow/tensorflow/lite/
+
+
+cmake --build . -j4
+
+
+
+
+
+错误：
+①大部分的github的仓库下载不了
+再终端要使用 proxychains  翻墙进行配置
+
+
+②XNNPACK会报错
+加上-DTFLITE_ENABLE_XNNPACK=OFF，貌似是toolchains的版本比较低导致，这里只是为了不出错，禁用XNNPACK
+
+③再编译的时候flatbuffers会出错
+貌似的版本问题，需要修改../tensorflow/tensorflow/lite/tools/cmake/modules/flatbuffers.cmake  中的GIT_TAG为2.0.8
+
+
+

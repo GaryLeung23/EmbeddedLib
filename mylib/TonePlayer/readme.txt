@@ -1,0 +1,10 @@
+arch中以STM32为例
+
+Tone是最底层的对pin输出看空比为50%的PWM波。
+Buzz是对Tone的一层封装，两者其实可以合并。
+
+Muisc文件夹中的常用音阶对应的频率，和一些常用的由音阶组合的音频段。
+
+TonePlayer是一个通用的音频段播放器。
+
+Audio是将TonePlayer的一个封装，设置Buzz为TonePlayer的callback，将与底层结合，实现音频播放功能。
